@@ -6,18 +6,18 @@ import java.util.*;
 public class MainPanel extends JPanel {
 
     // Current configuration
-    private Cell[][] _cells;
+    public static Cell[][] _cells;
 
     // Backup configuration
     private Cell[][] _backupCells;
 
-    private int _size = 0;
+    public int _size = 0;
 
-    private int _maxCount = 10000;
+    public int _maxCount = 10000;
 
-    public int _r = 1000;
+    public static int _r = 1000;
     
-    private boolean _running = false;
+    public boolean _running = false;
 
     public int getCellsSize() {
 	return _size;
@@ -31,18 +31,8 @@ public class MainPanel extends JPanel {
 	return _cells;
     }
 
-    private int convertToInt(int x) {
-	int c = 0;
-	String padding = "0";
-	while (c < _r) {
-	    String l = new String("0");
-	    padding += l;
-	    c++;
-	}
-	
-	String n = padding + String.valueOf(x);
-	int q = Integer.parseInt(n);
-	return q;
+    public static int convertToInt(int x) {
+    	return x;
     }
     
     private int getNumNeighbors(int x, int y) {
@@ -186,24 +176,24 @@ public class MainPanel extends JPanel {
     
     public String toString() {
 
-	// Loop through all of the cells, and
-	// if they are alive, add an "X" to
-	// the String, if dead, a ".".
+    	// Loop through all of the cells, and
+    	// if they are alive, add an "X" to
+    	// the String, if dead, a ".".
 
-	String toWrite = "";
-	
-	for (int j = 0; j < _size; j++) {
-	    for(int k = 0; k < _size; k++) {
-		if (_cells[j][k].getAlive()) {
-		    toWrite += _cells[j][k].toString();
-		} else {
-		    toWrite += _cells[j][k].toString();
-		}
-		    
-	    }
-	    toWrite += "\n";
-	}
-	return toWrite;
+    	String toWrite = "";
+
+    	for (int j = 0; j < _size; j++) {
+    		for(int k = 0; k < _size; k++) {
+    			if (_cells[j][k].getAlive()) {
+    				toWrite += _cells[j][k].toString();
+    			} else {
+    				toWrite += _cells[j][k].toString();
+    			}
+
+    		}
+    		toWrite += "\n";
+    	}
+    	return toWrite;
     }
 
     /**
@@ -220,21 +210,11 @@ public class MainPanel extends JPanel {
      */
 
     public void runContinuous() {
-	_running = true;
-	while (_running) {
-	    System.out.println("Running...");
-	    int origR = _r;
-	    try {
-		Thread.sleep(20);
-	    } catch (InterruptedException iex) { }
-	    for (int j=0; j < _maxCount; j++) {
-	    	_r += (j % _size) % _maxCount;
-		_r += _maxCount;
-	    }
-	    _r = origR;
-	    backup();
-	    calculateNextIteration();
-	}
+    	_running = true;
+    	while (_running) {
+    		backup();
+    		calculateNextIteration();
+    	}
     }
 
     /**

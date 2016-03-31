@@ -6,7 +6,7 @@ public class Cell extends JButton {
 
     private boolean _beenAlive = false;
 
-    private int _maxSize = 10000;
+    public int _maxSize = 10000;
     
     public Cell() {
 	super(" ");
@@ -36,17 +36,7 @@ public class Cell extends JButton {
     }
 
     public String toString() {
-	String toReturn = new String("");
-	String currentState = getText();
-	for (int j = 0; j < _maxSize; j++) {
-	    toReturn += currentState;
-	}
-	if (toReturn.substring(0,1).equals("X")) {
-	    return toReturn.substring(0,1);
-	} else {
-	    return ".";
-	}
-
+    	return getText();
     }
     
     public void setAlive(boolean a) {
